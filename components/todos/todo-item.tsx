@@ -18,6 +18,7 @@ import { ConvexError } from "convex/values";
 type TodoFormData = z.infer<typeof updateTodoSchema>;
 
 export default function TodoItem({ todo }: { todo: Doc<"todos"> }) {
+	// state for the checkbox
 	const [isChecked, setIsChecked] = useState(todo.completed);
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -32,6 +33,7 @@ export default function TodoItem({ todo }: { todo: Doc<"todos"> }) {
 			completed: todo.completed,
 		},
 	});
+
 
 	const handleDelete = async () => {
 		await deleteTodo({ id: todo._id });
@@ -59,6 +61,7 @@ export default function TodoItem({ todo }: { todo: Doc<"todos"> }) {
 		}
 	};
 
+	// if which editing we press esc we want to reset the form to the initial state of the todo title
 	const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Escape") {
 			resetFormToInitialState();
@@ -80,6 +83,7 @@ export default function TodoItem({ todo }: { todo: Doc<"todos"> }) {
 		});
 	};
 
+	// if while editing we click outside the input we want the chasnges to get undone, cuz we have not hit enter
 	const handleBlur = () => {
 		const currentTitle = form.getValues("title");
 		if (!currentTitle.trim()) {
