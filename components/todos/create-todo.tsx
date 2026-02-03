@@ -12,11 +12,16 @@ import {
 	FormItem,
 	FormMessage,
 } from "@/components/ui/form";
-import { createTodoSchema } from "@/lib/zod";
+// import { createTodoSchema } from "@/lib/zod";
 import { cn } from "@/lib/utils";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ConvexError } from "convex/values";
+
+export const createTodoSchema = z.object({
+    title: z.string(),
+    completed: z.boolean(),
+});
 
 type TodoFormData = z.infer<typeof createTodoSchema>;
 
