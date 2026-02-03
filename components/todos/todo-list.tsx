@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api"
+import TodoItem from "./todo-item";
 
 export default function TodoList() {
     const todos = useQuery(api.todos.getTodos);
@@ -34,7 +35,7 @@ export default function TodoList() {
     // if tasks are available we loop through them all - render the titles of the tasks
     return (
         <div className="space-y-2">
-            {todos?.map((todo) => <p key={todo._id}>{todo.title}</p>)}
+            {todos?.map((todo) => <TodoItem key={todo._id} todo={todo} />)}
         </div>
     )
 }
